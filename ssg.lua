@@ -1,28 +1,21 @@
-local file = io.open("head.html", "r")
-io.input(file)
+local lfs = require("lfs")
+
+io.input("head.html")
 local t = io.read("*a")
-file = io.open("output/index.html", "w")
-file:write(t)
-file:close()
+io.output("output/index.html")
+io.write(t)
 
-file = io.open("sections/Home.html", "r")
-io.input(file)
+for file in lfs.dir("sections/") do
+  if file ~="." and file ~=".." then
+    local dotIndex = string.find(file, "%.") - 1
+    print(dotIndex)
+    local sectionName = string.sub(file, 1, dotIndex)
+    io.input("sections/" .. file)
+    t = io.read("*a")
+    io.write("<section id=\"", sectionName, "\">\n", t, "</section>\n")
+  end
+end
+
+io.input("foot.html")
 t = io.read("*a")
-file = io.open("output/index.html", "a")
-file:write(t)
-file:close()
-
-file = io.open("sections/About.html", "r")
-io.input(file)
-t = io.read("*a")
-file = io.open("output/index.html", "a")
-file:write(t)
-file:close()
-
-file = io.open("foot.html", "r")
-io.input(file)
-t = io.read("*a")
-file = io.open("output/index.html", "a")
-file:write(t)
-file:close()
-
+io.write(t)
