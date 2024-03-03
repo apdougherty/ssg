@@ -39,3 +39,7 @@ luac.out
 *.x86_64
 *.hex
 
+# intermediate and output files of the script
+body.html
+nav.html
+output/
