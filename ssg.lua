@@ -1,5 +1,7 @@
 local lfs = require("lfs")
 
+os.execute("pandoc -o home.html home.md")
+
 io.input("home.html")
 local body = io.open("body.html", "w")
 local t = io.read("*a")
@@ -16,7 +18,8 @@ for file in lfs.dir("sections/") do
   if file ~="." and file ~=".." then
     local dotIndex = string.find(file, "%.") - 1
     local sectionName = string.sub(file, 1, dotIndex)
-    io.input("sections/" .. file)
+    os.execute("pandoc -o " .. sectionName .. ".html sections/" .. sectionName ..".md")
+    io.input(sectionName .. ".html")
     t = io.read("*a")
     body:write("<section id=\"", sectionName, "\">\n", t, "</section>\n")
     nav:write("\t\t<a href=\"#", sectionName, "\">", sectionName, "</a>\n")
@@ -44,3 +47,5 @@ io.write(t)
 io.input("foot.html")
 t = io.read("*a")
 io.write(t)
+
+

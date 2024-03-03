@@ -22,4 +22,4 @@ The script takes as input a series of Markdown text files in the folder `./secti
 
 - [ ] Set up separate folders for Nav and Non-nav Pages.
  
-- [ ] figure out how I'm going to integrate Pandoc into this thing.
+- [x] figure out how I'm going to integrate Pandoc into this thing. *that was easy lol*
